@@ -1,0 +1,26 @@
+# == Schema Information
+#
+# Table name: schemas
+#
+#  id             :integer          not null, primary key
+#  name           :string(255)
+#  changelogtable :string(255)
+#  created_at     :datetime
+#  updated_at     :datetime
+#  environment_id :integer
+#  host           :string(255)
+#  application_id :integer
+#  database_type  :string(255)
+#  username       :string(255)
+#  password       :string(255)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  changelogtable: MyString
+
+two:
+  name: MyString
+  changelogtable: MyString

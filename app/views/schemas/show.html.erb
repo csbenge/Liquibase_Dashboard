@@ -1,0 +1,69 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <i class="fa fa-database fa-2x"></i><b> <big><big>Schema: <b><%= @schema.name %></big></big></b>
+  </div>  
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+  <li><%= link_to 'Schemas', schemas_path %></li>
+  <li><%= link_to 'Add Schema', new_schema_path %></li>
+</ul>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <colgroup>
+      <col class="col-xs-3">
+      <col class="col-xs-7">
+    </colgroup>
+    <tbody>
+      <tr>
+        <td><strong>Schema Name</strong></td>
+  			<td><%= @schema.name %></td>
+      </tr>
+      <tr>
+        <td><strong>Database Type</strong></td>
+        <td><%= @schema.database_type %></td>
+      </tr>
+      <tr>
+        <td><strong>Hostname</strong></td>
+        <td><%= @schema.host %></td>
+      </tr>
+      <tr>
+        <td><strong>Status</strong></td>
+        <td><big><%= raw get_Schema_Deployments_Status(@schema) %></big></td>
+      </tr>
+      <tr
+        <td><strong>Port</strong></td>
+        <td><%= @schema.port %></td>
+      </tr>
+      <tr>
+        <td><strong>Username</strong></td>
+        <td><%= @schema.username %></td>
+      </tr>
+      <tr>
+        <td><strong>Password</strong></td>
+        <td><%= @schema.password %></td>
+      </tr>
+      <tr>
+        <td><strong>ChangeLog File</strong></td>
+        <td><%= @schema.changelogfile %></td>
+      </tr>
+      <tr>
+        <td><strong>DatabaseChangeLog Name</strong></td>
+  			<td><%= @schema.changelogtable %></td>
+      </tr>
+      <tr>
+        <td><strong>Application</strong></td>
+        <td><%= get_Application_Name(@schema.application_id) %></td>
+      </tr>
+      <tr>
+        <td><strong>Environment</strong></td>
+        <td><%= get_Environment_Name(@schema.environment_id) %></td>
+      </tr>
+    </tbody>
+  </table>
+ </div>
+
+<%= link_to 'Edit', edit_schema_path(@schema), class: 'btn btn-success btn-xs' %> 
+<%= link_to 'History', database_change_logs_path(:id => @schema.id, :schemaName => @schema.name, :databaseChangeLogTable => @schema.changelogtable), class: 'btn btn-success btn-xs' %>
+<%= link_to 'Back', :back, :class => 'c_textlink' %>

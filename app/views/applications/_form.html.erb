@@ -1,0 +1,40 @@
+<%= form_for(@application, html: {class: "form-horizontal"}) do |f| %>
+
+  <% if @application.errors.any? %>
+  <div id="errorExplanation" class="bs-callout bs-callout-danger">
+    <h4><%= pluralize(@application.errors.count, "error") %> prohibited this application from being saved:</h4>
+    <ul>
+    <% @application.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+<div class="well">
+
+  <div class="field form-group">
+    <%= f.label :'Application Name', class: 'col-sm-3 control-label' %>
+    <div class="col-sm-9">
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :'Description', class: 'col-sm-3 control-label' %>
+    <div class="col-sm-9">
+      <%= f.text_field :description, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="actions form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+      <%= f.submit @application.new_record? ? 'Create' : 'Update', :class => 'btn btn-success btn-xs' %>
+      <%= link_to 'Cancel', applications_path, :class => 'c_textlink' %>
+    </div>
+  </div>
+  </form>
+
+</div> 
+
+<% end %>

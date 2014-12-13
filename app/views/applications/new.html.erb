@@ -1,0 +1,13 @@
+<div class="panel panel-red">
+  <div class="panel-heading">
+    <i class="fa fa-list-alt fa-2x"></i><b> <big><big>Add Application</big></big></b>
+  </div>  
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+  <li><%= link_to 'Applications', applications_path %></li>
+  <li class="active"><%= link_to 'Add Application', new_application_path %></li>
+</ul>
+
+<%= render 'form' %>
+

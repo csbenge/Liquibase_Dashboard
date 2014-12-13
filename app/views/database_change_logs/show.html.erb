@@ -1,0 +1,69 @@
+<div class="container-fluid center">
+  <div class="col-sm-12 nopadding">
+
+    <div class="panel-parameter" id="accordion">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <%= t('.changeset') %>: <b><%= @database_change_log.ID %></b>
+        </h4>
+      </div>
+    
+      <div id="collapseOne" class="panel-collapse collapse in">
+        <div class="panel-body">
+                
+          <table class="table table-bordered table-striped table-condensed table-hover">
+          <tbody>
+            <tr>
+              <td><strong><%= t('.author') %></strong></td>
+              <td><%= @database_change_log.AUTHOR %></td>
+            </tr>
+            <tr>
+              <td><strong><%= t('.filename') %></strong></td>
+              <td><%= @database_change_log.FILENAME %></td>
+            </tr>
+            <tr>
+              <td><strong><%= t('.dateexecuted') %></strong></td>
+              <td><%= @database_change_log.DATEEXECUTED %></td>
+            </tr>
+            <tr>
+              <td><strong><%= t('.orderexecuted') %></strong></td>
+              <td><%= @database_change_log.ORDEREXECUTED %></td>
+            </tr>
+            <tr>
+              <td><strong><%= t('.exectype') %></strong></td>
+              <td><%= @database_change_log.EXECTYPE %></td>
+            </tr>
+            <tr>
+              <td><strong><%= t('.md5sum') %></strong></td>
+              <td><%= @database_change_log.MD5SUM %></td>
+            </tr>
+            <tr>
+              <td><strong><%= t('.description') %></strong></td>
+              <td><%= @database_change_log.DESCRIPTION %></td>
+            </tr>
+            <tr>
+              <td><strong><%= t('.comments') %></strong></td>
+              <td><%= @database_change_log.COMMENTS %></td>
+            </tr>
+            <tr>
+              <td><strong><%= t('.tag') %></strong></td>
+              <td><%= @database_change_log.TAG %></td>
+            </tr>
+            <tr>
+              <td><strong><%= t('.liquibase') %></strong></td>
+              <td><%= @database_change_log.LIQUIBASE%></td>
+            </tr>
+          </tbody>
+          </table>
+          
+        </div>
+      </div>
+      
+    </div>
+    </div>
+    
+    <%= link_to 'Back', :back, :class => 'c_textlink' %>
+    
+  </div>
+</div>

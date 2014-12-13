@@ -1,0 +1,90 @@
+<!-- file: app/views/environments/show.html.erb -->
+
+<div class="panel panel-yellow">
+  <div class="panel-heading">
+    <i class="fa fa-sitemap fa-2x"></i><big><big>Environment: <b><%= @environment.name %></big></big></b>
+  </div>  
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+  <li><%= link_to 'Environments', environments_path %></li>
+  <li><%= link_to 'Add Environment', new_environment_path %></li>
+</ul>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <colgroup>
+      <col class="col-xs-3">
+      <col class="col-xs-7">
+    </colgroup>
+    <tbody>
+      <tr>
+        <td><strong>Environment Name</strong></td>
+        <td><%= @environment.name %></td>
+      </tr>
+       <tr>
+        <td><strong>Description</strong></td>
+        <td><%= @environment.description %></td>
+      </tr>
+      <tr>
+        <td><strong>Application</strong></td>
+        <td><%= get_Application_Name(@environment.application) %></big></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="row">
+<div class="col-lg-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="c_panelheadinglink">
+          <h3 class="panel-title"><i class="fa fa-database fa-fw"></i>Schemas</h3>
+        </a>
+      </div>
+
+      <div id="collapseOne" class="panel-body panel-collapse collapse in">
+        <div class="list-group">
+
+        <table class="table table-hover table-bordered table-condensed table-striped">
+          <thead>
+            <tr>
+              <th>Schema Name</th>
+              <th>Hostname</th>
+              <th>Status</th>
+              <th>Change Log Table</th>
+              <th>Lastest Deployed Change</th>
+              <th>Lastest Deployed Date</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% if @environment.schemas.count != 0 %>
+            <% @environment.schemas.each do |schema| %>
+            <tr class="">
+                <td>
+                  <%= link_to schema.name, database_change_logs_path(:id => schema.id, :schemaName => schema.name, :databaseChangeLogTable => schema.changelogtable), class: 'c_textlink' %>
+                </td>
+                <td><%= schema.host %></td>
+                <td><big><%= raw get_Schema_Deployments_Status(schema) %></big></td>
+                <td><%= schema.changelogtable %></td>
+                <td>
+                  <%= get_Schema_Deployment_Latest_ChangeSet(schema) %>
+               </td>
+                <td><%= get_Schema_Deployment_Latest_ExecDate(schema).strftime("%Y-%m-%d %H:%M") %></td>
+              </tr>
+              <% end %>
+          <% else %>
+            <tr class="">
+              <td colspan="5"><span class="label label-warning"><big>No schemas defined and/or associated with environment.</big></span><br/></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+
+        </div>
+      </div>
+      
+    </div>
+</div>
+</div>

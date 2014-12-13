@@ -1,0 +1,108 @@
+body {
+    padding-top: 70px;
+  }
+
+  /* unvisited link */
+a.c_textlink:link {
+    color: gray;
+    background-color: none;
+}
+
+/* visited link */
+a.c_textlink:visited {
+    color: gray;
+    background-color: none;
+}
+
+/* mouse over link */
+a.c_textlink:hover {
+    color: gray;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+/* selected link */
+a.c_textlink:active {
+    color: gray;
+    background-color: none;
+}
+
+/* unvisited link */
+a.p_textlink:link {
+    color: gray;
+    background-color: none;
+}
+
+/* visited link */
+a.p_textlink:visited {
+    color: gray;
+    background-color: none;
+}
+
+/* mouse over link */
+a.p_textlink:hover {
+    color: gray;
+    background-color: none;
+    text-decoration: underline;
+}
+
+/* selected link */
+a.p_textlink:active {
+    color: gray;
+    background-color: none;
+}
+
+
+
+
+  /* unvisited link */
+a.c_panelheadinglink:link {
+    color: white;
+    background-color: none;
+}
+
+/* visited link */
+a.c_panelheadinglink:visited {
+    color: white;
+    background-color: none;
+}
+
+/* mouse over link */
+a.c_panelheadinglink:hover {
+    color: white;
+    background-color: inherit;
+    text-decoration: underline;
+}
+
+/* selected link */
+a.c_panelheadinglink:active {
+    color: white;
+    background-color: none;
+}
+
+
+
+ /* unvisited link */
+a.c_panelheadinglink2:link {
+    color: black;
+    background-color: none;
+}
+
+/* visited link */
+a.c_panelheadinglink2:visited {
+    color: black;
+    background-color: none;
+}
+
+/* mouse over link */
+a.c_panelheadinglink2:hover {
+    color: black;
+    background-color: inherit;
+    text-decoration: underline;
+}
+
+/* selected link */
+a.c_panelheadinglink2:active {
+    color: black;
+    background-color: none;
+}

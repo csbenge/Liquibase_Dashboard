@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ASCII"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:appdba="http://www.datical.net/xml/ns/appdba" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:storedlogic="http://www.datical.net/xml/ns/storedlogic" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd" logicalFilePath="Changelog/changelog.xml">
+  <changeSet author="cbenge" id="10-createTable:features_cars">
+    <createTable tableName="features_cars">
+      <column name="id" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+      <column name="car_size" type="VARCHAR(50)"/>
+      <column name="VehicleId" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+    </createTable>
+  </changeSet>
+  <changeSet author="cbenge" id="11-createTable:features_trucks">
+    <createTable tableName="features_trucks">
+      <column name="id" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+      <column name="bed_length" type="VARCHAR(50)"/>
+      <column name="VehicleId" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+    </createTable>
+  </changeSet>
+  <changeSet author="cbenge" id="12-createTable:vehicles">
+    <createTable tableName="vehicles">
+      <column name="id" type="INT(10)">
+                <constraints nullable="false"/>
+            </column>
+      <column name="make" type="VARCHAR(50)"/>
+      <column name="model" type="VARCHAR(50)"/>
+      <column name="model_year" type="YEAR"/>
+      <column name="transmission" type="VARCHAR(50)"/>
+      <column name="msrp" type="DECIMAL(7, 2)"/>
+      <column name="rebate" type="DECIMAL(7, 2)"/>
+      <column name="date_acquired" type="DATE"/>
+    </createTable>
+  </changeSet>
+  <changeSet author="cbenge" id="13-addPrimaryKey:features_cars">
+    <addPrimaryKey columnNames="id" tableName="features_cars"/>
+  </changeSet>
+  <changeSet author="cbenge" id="14-addPrimaryKey:features_cars">
+    <addPrimaryKey columnNames="id" tableName="features_trucks"/>
+  </changeSet>
+  <changeSet author="cbenge" id="15-addPrimaryKey:features_cars">
+    <addPrimaryKey columnNames="id" tableName="vehicles"/>
+  </changeSet>
+  <changeSet author="cbenge" id="16-addNotNullConstraint">
+    <comment>Make cannot be null</comment>
+    <addNotNullConstraint columnDataType="varchar(50)" columnName="make" defaultNullValue="UNKNOWN" tableName="vehicles"/>
+    <rollback>
+		<dropNotNullConstraint columnDataType="varchar(50)" columnName="make" tableName="vehicles"/>
+	</rollback>
+  </changeSet>
+  <changeSet author="cbenge" id="17-addForeignKeyConstraint:features_cars">
+    <addForeignKeyConstraint baseColumnNames="VehicleId" baseTableName="features_cars" constraintName="features_cars_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="vehicles"/>
+  </changeSet>
+  <changeSet author="cbenge" id="18-addForeignKeyConstraint:features_trucks">
+    <addForeignKeyConstraint baseColumnNames="VehicleId" baseTableName="features_trucks" constraintName="features_trucks_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="vehicles"/>
+  </changeSet>
+  <changeSet author="wwillard" context="data" id="40-modifyDataTypes">
+    <comment>Change column datatypes to varchar(255) from varchar(50)</comment>
+    <modifyDataType columnName="make" newDataType="varchar(255)" tableName="vehicles"/>
+    <rollback>
+			<modifyDataType columnName="make" newDataType="varchar(50)" tableName="vehicles"/>
+		</rollback>
+  </changeSet>
+  <changeSet author="ssuehs" context="data" id="83-insertData">
+    <comment>Adding data to &quot;person&quot; table</comment>
+    <insert tableName="vehicles">
+      <column name="id" value="6"/>
+      <column name="make" value="Tesla"/>
+      <column name="model" value="Tesla"/>
+      <column name="model_year" value="2013"/>
+      <column name="transmission" value="AUTOMATIC"/>
+      <column name="msrp" value="99999.00"/>
+      <column name="rebate" value="0.00"/>
+      <column name="date_acquired" value="2013-01-22 01:00:00"/>
+    </insert>
+    <rollback>
+			<sql>DELETE FROM vehicles WHERE make=&quot;Tesla&quot; AND lastname=&quot;Doe&quot; AND
+				username=&quot;jdoe&quot;;
+			</sql>
+		</rollback>
+  </changeSet>
+  <changeSet author="cb" context="" id="90-addColumn:model_options">
+  <comment>Test 2</comment>
+    <addColumn tableName="vehicles">
+      <column name="model_options" type="varchar(64)"><constraints nullable="false"/></column>
+    </addColumn>
+  </changeSet>
+</databaseChangeLog>

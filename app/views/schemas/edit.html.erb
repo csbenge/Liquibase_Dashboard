@@ -1,0 +1,13 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <i class="fa fa-database fa-2x"></i><big><big>Edit Schema:<b> <%= @schema.name %></b></big></big>
+  </div>  
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+  <li><%= link_to 'Schemas', schemas_path %></li>
+  <li><%= link_to 'Add Schema', new_schema_path %></li>
+</ul>
+
+<%= render 'form' %>
+

@@ -1,0 +1,43 @@
+
+
+<nav class="navbar navbar-left navbar-inverse side-nav" role="navigation-left">
+  <ul class="nav navbar-nav side-nav">
+
+    <li class="active">
+      <%= link_to dashboards_path do %>
+        <i class="fa fa-fw fa-dashboard"></i> Dashboard
+      <% end %>
+    </li>
+
+    <li class="active">
+      <%= link_to applications_path do %>
+        <i class="fa fa-fw fa-list-alt"></i> Applications
+      <% end %>
+    </li>
+
+    <li class="active">
+      <%= link_to environments_path do %>
+        <i class="fa fa-fw fa-sitemap"></i> Environments
+      <% end %>
+    </li>
+
+    <li class="active">
+      <%= link_to schemas_path do %>
+        <i class="fa fa-fw fa-database"></i> Schemas
+      <% end %>
+    </li>
+
+    <li class="active">
+      <%= link_to deployments_path do %>
+        <i class="fa fa-fw fa-tasks"></i> Deployments
+      <% end %>
+    </li>
+
+    <li class="active">
+      <%= link_to static_pages_home_path do %>
+        <i class="fa fa-fw fa-gear"></i><i> Settings</i>
+      <% end %>
+    </li>
+
+  </ul>
+</nav>

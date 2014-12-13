@@ -1,0 +1,97 @@
+<%= form_for(@schema, html: {class: "form-horizontal"}) do |f| %>
+
+  <% if @schema.errors.any? %>
+  <div id="errorExplanation" class="bs-callout bs-callout-danger">
+    <h4><%= pluralize(@schema.errors.count, "error") %> prohibited this schema from being saved:</h4>
+    <ul>
+    <% @schema.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+<div class="well">
+
+  <div class="field form-group">
+    <%= f.label :'Schema Name', class: 'col-sm-3 control-label' %>
+    <div class="col-sm-9">
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :'Database Type', class: 'col-sm-3 control-label' %>
+    <div class="col-sm-9">
+      <%= f.select :database_type, Schema::DATABASE_TYPES.map { |s| s } %>
+    </div>
+  </div>  
+
+
+  <div class="field form-group">
+    <%= f.label :'Hostname', class: 'col-sm-3 control-label' %>
+    <div class="col-sm-9">
+      <%= f.text_field :host, class: 'form-control' %>
+    </div>
+  </div>
+
+
+  <div class="field form-group">
+    <%= f.label :'Port', class: 'col-sm-3 control-label' %>
+    <div class="col-sm-9">
+      <%= f.text_field :port, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :'User Name', class: 'col-sm-3 control-label' %>
+    <div class="col-sm-9">
+      <%= f.text_field :username, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :'Password', class: 'col-sm-3 control-label' %>
+    <div class="col-sm-9">
+      <%= f.text_field :password, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :'ChangeLog File', class: 'col-sm-3 control-label' %>
+    <div class="col-sm-9">
+      <%= f.text_field :changelogfile, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :'DatabaseChangeLog Table', class: 'col-sm-3 control-label' %>
+    <div class="col-sm-9">
+      <%= f.text_field :changelogtable, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :'Application', class: 'col-sm-3 control-label' %>
+    <div class="col-sm-9">
+      <%= collection_select(:schema, :application_id, Application.all, :id, :name) %>
+    </div>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :'Environment', class: 'col-sm-3 control-label' %>
+    <div class="col-sm-9">
+      <%= collection_select(:schema, :environment_id, Environment.all, :id, :name) %>
+    </div>
+  </div>
+
+  <div class="actions form-group">
+    <div class="col-sm-offset-3 col-sm-9">
+      <%= f.submit @schema.new_record? ? 'Create' : 'Update', :class => 'btn btn-success btn-xs' %>
+      <%= link_to 'Cancel', schemas_path, :class => 'c_textlink' %>
+    </div>
+  </div>
+  </form>
+
+</div> 
+<% end %>

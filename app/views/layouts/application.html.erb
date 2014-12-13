@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+  <title>Liquibase[Dashboard]</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+
+<body>
+
+  <div id="main-container" class="wrapper">
+    <%= render 'layouts/navigation_top' %>
+
+    <div class="row">
+
+      <div class="col-xs-2">
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav side-nav">
+            <%= render 'layouts/navigation_left' %>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-xs-9">
+        <div class="row">
+          <%= render 'layouts/alert' %>
+        </div>
+        <div class="row">
+          <%= yield %>
+        </div> 
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

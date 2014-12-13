@@ -1,0 +1,197 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <i class="fa fa-dashboard fa-2x"></i><b> <big><big>Dashboard <small>Statistics Overview</small></big></big></b>
+  </div>  
+</div>
+
+<div class="row">
+	
+	<div class="col-lg-3 col-md-6">
+  	<div class="panel panel-red">
+    	<div class="panel-heading">
+        <div class="row">
+            <div class="col-xs-3">
+                <i class="fa fa-list-alt fa-5x"></i><b>Applications</b>
+            </div>
+            <div class="col-xs-9 text-right">
+              <div class="huge"><%= get_Application_Count() %></div>
+              <div>Managed</div>
+            </div>
+        </div>
+      </div>
+      	<div class="panel-footer">
+        	<%= link_to applications_path, :class => 'p_textlink' do %>
+            <span class="pull-left">View Applications</span>
+            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+            <div class="clearfix"></div>
+  				<% end %>
+				</div>
+    </div>
+	</div>
+
+	<div class="col-lg-3 col-md-6">
+	    <div class="panel panel-yellow">
+	        <div class="panel-heading">
+	            <div class="row">
+	                <div class="col-xs-3">
+	                    <i class="fa fa-sitemap fa-5x"></i><b>Environments</b>
+	                </div>
+	                <div class="col-xs-9 text-right">
+	                    <div class="huge"><%= get_Environment_Count() %></div>
+	                    <div>Managed</div>
+	                </div>
+	            </div>
+	        </div>
+        	<div class="panel-footer">
+	        	<%= link_to environments_path, :class => 'p_textlink' do %>
+                <span class="pull-left">View Environments</span>
+                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                <div class="clearfix"></div>
+    				<% end %>
+					</div>
+      		
+	    </div>
+	</div>
+
+	<div class="col-lg-3 col-md-6">
+	    <div class="panel panel-blue">
+	        <div class="panel-heading">
+	            <div class="row">
+	                <div class="col-xs-3">
+	                    <i class="fa fa-database fa-5x"></i><b>Schemas</b>
+	                </div>
+	                <div class="col-xs-9 text-right">
+	                    <div class="huge"><%= get_Schema_Count() %></div>
+	                    <div>Managed</div>
+	                </div>
+	            </div>
+	        </div>
+        	<div class="panel-footer">
+	        	<%= link_to schemas_path, :class => 'p_textlink' do %>
+                <span class="pull-left">View Managed Schemas</span>
+                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                <div class="clearfix"></div>
+    				<% end %>
+					</div>
+      		
+	    </div>
+	</div>
+
+	<div class="col-lg-3 col-md-6">
+	    <div class="panel panel-green">
+	        <div class="panel-heading">
+	            <div class="row">
+	                <div class="col-xs-3">
+	                    <i class="fa fa-tasks fa-5x"></i><b>Deployments</b>
+	                </div>
+	                <div class="col-xs-9 text-right">
+	                    <div class="huge"><%= get_Schema_Deployments_Count(dashboardLastXdays) %></div>
+	                    <div>Changes Since<br/><%= get_Schema_Deployments_Since_Date(dashboardLastXdays) %></div>
+	                </div>
+	            </div>
+	        </div>
+	        <a href="#">
+	            <div class="panel-footer">
+	                <%= link_to deployments_path, :class => 'p_textlink' do %>
+                <span class="pull-left">View Deployments</span>
+                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                <div class="clearfix"></div>
+    				<% end %>
+	            </div>
+	        </a>
+	    </div>
+	</div>
+</div>
+
+
+	<!-- Latest Deployed ChangeSets -->
+
+	<div class="panel panel-default">
+  	<div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a class="c_textlink" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fa fa-clock-o fa-fw"></i> Deployed ChangeSets Last 7 Days
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+
+        <table class="table table-hover table-bordered table-condensed table-striped">
+        <thead>
+          <tr>
+            <th>Schema</th>
+            <th>Change Set ID</th>
+            <th>Date Deployed</th>
+            <th>Description</th>
+            <th>Comments</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% get_Schema_Deployments_ChangeSets(0)
+        	@listChangeSets.each_slice(9) do |schema_id, schema, environment_id, changelogtable, changeSet, dataexecuted, description, comments, rowColor| %>
+					<% if rowColor %>
+					<tr class="active">
+					<% else %>
+					<tr class="success">
+					<% end %>
+						<td>
+							<%= link_to schema, database_change_logs_path(:schemaName => schema, :databaseChangeLogTable => changelogtable), class: 'c_textlink' %>
+						</td>
+						<td><%= changeSet %></td>
+						<td><%= dataexecuted.strftime("%Y-%m-%d %H:%M") %></td>
+						<td><%= description %></td>
+						<td><%= comments %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      	</table>
+
+      	</div>
+  		</div>
+	</div>
+
+<!-- Undeployed ChangeSets -->
+
+<div class="row">
+
+	<div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title">
+        <a class="c_textlink" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fa fa-arrow-circle-o-right fa-fw"></i> UnDeployed ChangeSets
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="panel-body">
+         <table class="table table-hover table-bordered table-condensed table-striped">
+          <thead>
+            <tr>
+            	<th><%= t('.schema') %></th>
+              <th><%= t('.id') %></th>
+            </tr>
+          </thead>
+          
+          <tbody>
+          <% if get_All_Schema_Deployments_Pending() %>
+            <% if @all_undeployed_change_sets != NIL %>
+              <% @all_undeployed_change_sets.each_slice(2)  do |schema, changeSets| %>
+              	<% changeSets.each do |changeSet| %>
+	                <tr>
+	                  <td nowrap="true"><%= schema %></td>
+	                  <td nowrap="true"><%= changeSet %></td>
+	                </tr>
+	              <% end %>
+              <% end %>
+            <% else %>
+              <tr class="">
+                <td colspan="5"><span class="label label-danger">Error retriving database change log.</span><br/></td>
+              </tr>
+            <% end %>
+          <% end %>
+          </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+</div>

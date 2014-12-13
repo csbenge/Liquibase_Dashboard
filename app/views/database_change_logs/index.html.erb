@@ -1,0 +1,110 @@
+<!-- File: app/views/database_change_logs/index.html.erb-->
+
+<div class="container-fluid center">
+  <div class="col-sm-12 nopadding">
+
+    <!-- Deployed ChangeSets -->
+               
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+              <i class="fa fa-database fa-2x"></i> <big><big>Schema: <b><%= @schemaName %></b>,   Change Log Table: <b><%= @databaseChangeLogTable %></big></big></b>
+          </h4>
+        </div>
+      
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+              <h4 class="panel-title">
+                <a class="c_textlink" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                   <i class="fa fa-check-circle-o fa-fw"></i> Deployed Changes
+                </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+              <div class="panel-body">
+                <table class="table table-hover table-bordered table-condensed table-striped">
+                  <thead>
+                    <tr>
+                      <th><%= t('.id') %></th>
+                      <th><%= t('.author') %></th>
+                      <th><%= t('.dateexecuted') %></th>
+                      <th style="text-align: center;"><%= t('.orderexecuted') %></th>
+                      <th><%= t('.exectype') %></th>
+                      <th><%= t('.description') %></th>
+                      <th><%= t('.comments') %></th>
+                      <th><%= t('.tag') %></th>
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+                  <% if @database_change_log != NIL %>
+                    <% @database_change_log.each do |changeSet| %>
+                      <tr>
+                        <td nowrap="true"><%= link_to changeSet.ID, changeSet, :class => 'c_textlink'  %></td>
+                        <td><%= changeSet.AUTHOR %></td>
+                        <td nowrap="true"><%= changeSet.DATEEXECUTED.strftime("%Y-%m-%d %H:%M") %></td>
+                        <td style="text-align: center;"><%= changeSet.ORDEREXECUTED %></td>
+                        <td nowrap="true"><%= changeSet.EXECTYPE %></td>
+                        <td><%= changeSet.DESCRIPTION %></td>
+                        <td><%= changeSet.COMMENTS %></td>
+                        <td><%= changeSet.TAG %></td>
+                      </tr>
+                      <% end %>
+                   <% else %>
+                    <tr class="">
+                      <td colspan="5"><span class="label label-danger">Error retriving database change log.</span><br/></td>
+                    </tr>
+                  <% end %>
+                  </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Un Deployed ChangeSets -->
+
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+              <h4 class="panel-title">
+                <a class="collapsed; c_textlink" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  <i class="fa fa-arrow-circle-o-right fa-fw"></i> UnDeployed Changes
+                </a>
+              </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+              <div class="panel-body">
+                 <table class="table table-hover table-bordered table-condensed table-striped">
+                  <thead>
+                    <tr>
+                      <th><%= t('.id') %></th>
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+                  <% if get_Schema_Deployments_Pending(@schemaID) %>
+                    <% if @undeployed_change_sets != NIL %>
+                      <% @undeployed_change_sets.each do |changeSet| %>
+                        <tr>
+                          <td nowrap="true"><%= changeSet %></td>
+                        </tr>
+                        <% end %>
+                     <% else %>
+                      <tr class="">
+                        <td colspan="5"><span class="label label-danger">Error retriving database change log.</span><br/></td>
+                      </tr>
+                    <% end %>
+                  <% end %>
+                  </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+    </div>
+
+  <%= link_to 'Back', :back, :class => 'c_textlink' %>
+
+  </div>
+</div>

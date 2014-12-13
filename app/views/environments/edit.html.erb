@@ -1,0 +1,13 @@
+<div class="panel panel-yellow">
+  <div class="panel-heading">
+    <i class="fa fa-sitemap fa-2x"></i><b> <big><big>Edit Environment: <b><%= @environment.name %></b></big></big></b>
+  </div>  
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+  <li><%= link_to 'Environments', environments_path %></li>
+  <li class="active"><%= link_to 'Add Environment', new_environment_path %></li>
+</ul>
+
+<%= render 'form' %>
+

@@ -1,0 +1,45 @@
+<div class="panel panel-yellow">
+  <div class="panel-heading">
+    <i class="fa fa-sitemap fa-2x"></i><b> <big><big>Environments</big></big></b>
+  </div>  
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><%= link_to 'Environments', environments_path %></li>
+  <li><%= link_to 'Add Environment', new_environment_path %></li>
+</ul>
+
+<div class="table">
+
+<table class="table table-striped table-bordered table-hover table-condensed ">
+  <thead>
+    <tr>
+      <th class="col-md-4">Environment Name</th>
+      <th class="col-md-4">Application</th>
+      <th class="col-md-4">Description</th>
+      <th class="col-md-4"colspan="4" style="text-align:center;">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @environments.each do |environment| %>
+      <tr>
+        <td>
+          <span class="has-tooltip" data-toggle="tooltip" title="<%= "Created on #{environment.created_at.strftime("%m/%e/%Y at %w:%M %p")}, Last modified on #{environment.updated_at.strftime("%m/%e/%Y at %w:%M %p")}" %>">
+            <%= link_to environment.name, environment, :class => 'c_textlink' %>
+          </span>
+        </td>
+        <td><%= get_Application_Name(environment.application_id) %></td>
+        <td><%= environment.description %></td>
+        <td style="text-align:center;"><%= link_to 'Show', environment, class: 'btn btn-success btn-xs' %></td>
+        <td style="text-align:center;"><%= link_to 'Edit', edit_environment_path(environment), class: 'btn btn-success btn-xs' %></td>
+        <td style="text-align:center;"><%= link_to 'Destroy', environment, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-success btn-xs' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
+
+
+
